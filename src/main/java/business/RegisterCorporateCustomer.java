@@ -44,5 +44,4 @@ public class RegisterCorporateCustomer extends HttpServlet {
         }
         out.close();
     }
-
 }

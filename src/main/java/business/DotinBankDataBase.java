@@ -10,23 +10,15 @@ import java.sql.Statement;
  */
 public class DotinBankDataBase {
     public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    public static final String DATABASE_URL = "jdbc:mysql://localhost/DOTINBANK";
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
+    public static final String DATABASE_URL = "jdbc:mysql://10.20.15.161:3306/dotin1";
+    public static final String USERNAME = "dotin1";
+    public static final String PASSWORD = "dotin1";
 
     public static void main(String[] args) {
         Connection connection = null;
         Statement statement = null;
         try {
             Class.forName(JDBC_DRIVER);
-            /*creating DataBase*/
-            System.out.println("Connecting to database...");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost", USERNAME, PASSWORD);
-            System.out.println("Creating database...");
-            statement = connection.createStatement();
-            statement.executeUpdate("CREATE DATABASE STUDENTS");
-            System.out.println("Database created successfully...");
-
             /*creating Tables*/
             connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
             statement = connection.createStatement();
@@ -42,7 +34,7 @@ public class DotinBankDataBase {
                     "(firstName VARCHAR(255), " +
                     " lastName VARCHAR(255), " +
                     " fatherName VARCHAR(255), " +
-                    " nationalCode VARCHAR(255), not null" +
+                    " nationalCode VARCHAR(255) not null," +
                     " birthdayDate DATE, " +
                     " customerNumber INTEGER not NULL, " +
                     " PRIMARY KEY ( customerNumber ))");
