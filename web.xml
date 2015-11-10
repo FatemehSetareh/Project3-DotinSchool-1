@@ -1,0 +1,63 @@
+<web-app>
+
+   <!-- <listener>
+        <listener-class>business.ActualCustomerListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>business.CorporateCustomerListener</listener-class>
+    </listener>!-->
+
+    <servlet>
+        <servlet-name>RegisterActualCustomer</servlet-name>
+        <servlet-class>business.RegisterActualCustomer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterActualCustomer</servlet-name>
+        <url-pattern>/servlet/business.RegisterActualCustomer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterCorporateCustomer</servlet-name>
+        <servlet-class>business.RegisterCorporateCustomer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterCorporateCustomer</servlet-name>
+        <url-pattern>/servlet/business.RegisterCorporateCustomer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchActualCustomer</servlet-name>
+        <servlet-class>business.SearchActualCustomer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchActualCustomer</servlet-name>
+        <url-pattern>/servlet/business.SearchActualCustomer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchCorporateCustomer</servlet-name>
+        <servlet-class>business.SearchCorporateCustomer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchCorporateCustomer</servlet-name>
+        <url-pattern>/servlet/business.SearchCorporateCustomer</url-pattern>
+    </servlet-mapping>
+
+    <!--<servlet>
+        <servlet-name>business.ActualCustomerInformation</servlet-name>
+        <servlet-class>business.ActualCustomerInformation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>business.CorporateCustomerInformation</servlet-name>
+        <servlet-class>business.CorporateCustomerInformation</servlet-class>
+    </servlet>-->
+    <!--<servlet-mapping>
+        <servlet-name>business.ActualCustomerInformation</servlet-name>
+        <url-pattern>/servlet/business.ActualCustomerInformation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>business.CorporateCustomerInformation</servlet-name>
+        <url-pattern>/servlet/business.CorporateCustomerInformation</url-pattern>
+    </servlet-mapping>-->
+
+</web-app>

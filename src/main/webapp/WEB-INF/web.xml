@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <servlet>
+        <servlet-name>RegisterActualCustomer</servlet-name>
+        <servlet-class>business.RegisterActualCustomer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterActualCustomer</servlet-name>
+        <url-pattern>/servlet/business.RegisterActualCustomer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterCorporateCustomer</servlet-name>
+        <servlet-class>business.RegisterCorporateCustomer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterCorporateCustomer</servlet-name>
+        <url-pattern>/servlet/business.RegisterCorporateCustomer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchActualCustomer</servlet-name>
+        <servlet-class>business.SearchActualCustomer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchActualCustomer</servlet-name>
+        <url-pattern>/servlet/business.SearchActualCustomer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchCorporateCustomer</servlet-name>
+        <servlet-class>business.SearchCorporateCustomer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchCorporateCustomer</servlet-name>
+        <url-pattern>/servlet/business.SearchCorporateCustomer</url-pattern>
+    </servlet-mapping>
+
+</web-app>
