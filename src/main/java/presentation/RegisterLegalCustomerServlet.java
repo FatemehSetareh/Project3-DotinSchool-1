@@ -24,8 +24,9 @@ PrintWriter out;
         String registerDate = request.getParameter("registerDate");
         LegalCustomer legalCustomer = new LegalCustomer(corporationName, financialCode, registerDate);
 
-        LegalLogic legalLogic = new LegalLogic();
+
         try {
+            LegalLogic legalLogic = new LegalLogic();
             legalLogic.checkRegisterLogic(legalCustomer);
         } catch (SQLException e) {
             e.printStackTrace();

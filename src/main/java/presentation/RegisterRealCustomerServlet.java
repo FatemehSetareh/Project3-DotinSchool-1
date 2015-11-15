@@ -26,7 +26,7 @@ public class RegisterRealCustomerServlet extends HttpServlet {
         String nationalCode = request.getParameter("nationalCode");
         String birthDate = request.getParameter("birthDate");
         RealCustomer realCustomer = new RealCustomer(firstName, lastName, fatherName, nationalCode, birthDate);
-
+        System.out.println(realCustomer.getFirstName() + realCustomer.getLastName() + realCustomer.getFatherName() + realCustomer.getNationalCode() + realCustomer.getBirthDate());
         try {
             RealLogic realLogic = new RealLogic();
             realLogic.checkRegisterLogic(realCustomer);
@@ -35,15 +35,16 @@ public class RegisterRealCustomerServlet extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-
+    public void printSuccessReport() {
+        System.out.println("yesssssssssssssssssssss");
+        out.print("This customer successfully registered...");
     }
 
     public void printErrorReport() {
         out.print("Error: This national code is in our database!");
     }
 
-    public void printSuccessReport() {
-        out.print("This customer successfully registered...");
-    }
+
 }

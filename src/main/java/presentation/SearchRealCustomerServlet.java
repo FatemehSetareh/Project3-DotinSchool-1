@@ -27,17 +27,21 @@ public class SearchRealCustomerServlet extends HttpServlet {
         if (!request.getParameter("firstName").equals("")) {
             firstName = request.getParameter("firstName");
         } else firstName = null;
+
         if (!request.getParameter("lastName").equals("")) {
             lastName = request.getParameter("lastName");
         } else lastName = null;
+
         if (!request.getParameter("nationalCode").equals("")) {
             nationalCode = request.getParameter("nationalCode");
         } else nationalCode = null;
+
         if (!request.getParameter("customerNumber").equals("")) {
             customerNumber = Integer.valueOf(request.getParameter("customerNumber"));
         } else customerNumber = null;
 
-        System.out.println(firstName + "\n" + lastName + "\n"  + nationalCode + "\n" + customerNumber);
+        System.out.println(firstName + "\n" + lastName + "\n" + nationalCode + "\n" + customerNumber);
+
         try {
             RealLogic realLogic = new RealLogic();
             realLogic.searchLogic(firstName, lastName, nationalCode, customerNumber);

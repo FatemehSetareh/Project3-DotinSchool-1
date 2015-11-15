@@ -44,12 +44,15 @@
 
 <p>Search Using These Fields</p>
 
-<form action="/SearchLegalCustomerServlet" method="post">
-    <input type="text" name="corporationName" onfocus="if(this.value == 'Corporation Name') { this.value = ''; }" value="Corporation Name">
+<form action="/SearchLegalCustomerServlet">
+    <input type="text" name="corporationName" onfocus="if(this.value == 'Corporation Name') { this.value = ''; }"
+           value="Corporation Name">
     <br>
-    <input type="text" name="financialCode" onfocus="if(this.value == 'Financial Code') { this.value = ''; }" value="Financial Code">
+    <input type="text" name="financialCode" onfocus="if(this.value == 'Financial Code') { this.value = ''; }"
+           value="Financial Code">
     <br>
-    <input type="text" name="customerNumber" onfocus="if(this.value == 'customerNumber') { this.value = ''; }" value="customerNumber">
+    <input type="text" name="customerNumber" onfocus="if(this.value == 'customerNumber') { this.value = ''; }"
+           value="customerNumber">
     <br>
     <input type="submit" value="Search">
 </form>
