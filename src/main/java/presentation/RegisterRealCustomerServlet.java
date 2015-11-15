@@ -27,9 +27,9 @@ public class RegisterRealCustomerServlet extends HttpServlet {
         String birthDate = request.getParameter("birthDate");
         RealCustomer realCustomer = new RealCustomer(firstName, lastName, fatherName, nationalCode, birthDate);
 
-        RealLogic realLogic = new RealLogic();
         try {
-            realLogic.checkRegisterValidity(realCustomer);
+            RealLogic realLogic = new RealLogic();
+            realLogic.checkRegisterLogic(realCustomer);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

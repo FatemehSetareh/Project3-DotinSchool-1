@@ -26,7 +26,7 @@ PrintWriter out;
 
         LegalLogic legalLogic = new LegalLogic();
         try {
-            legalLogic.checkRegisterValidity(legalCustomer);
+            legalLogic.checkRegisterLogic(legalCustomer);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

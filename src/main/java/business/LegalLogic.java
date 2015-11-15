@@ -12,7 +12,7 @@ public class LegalLogic {
     boolean flag = true;
     RegisterLegalCustomerServlet registerLegalCustomerServlet;
 
-    public void checkRegisterValidity(LegalCustomer legalCustomer)
+    public void checkRegisterLogic(LegalCustomer legalCustomer)
             throws SQLException, ClassNotFoundException {
         LegalCustomerActions legalCustomerActions = new LegalCustomerActions();
         if (flag == true) {

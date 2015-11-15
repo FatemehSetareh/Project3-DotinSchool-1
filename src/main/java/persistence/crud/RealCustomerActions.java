@@ -48,23 +48,45 @@ public class RealCustomerActions {
     }
 
     public void searchDatabase(String firstName, String lastName, String nationalCode, Integer customerNumber) {
+        System.out.println(firstName + "***" + lastName + "***" + nationalCode + "***" + customerNumber);
+
         String where = "";
         if (firstName != null) {
-            where += (where == "") ? " WHERE " : " AND "
-                    + "firstName = " + firstName;
+            if (where.equals("")){
+                where += " WHERE " + "firstName = " + firstName;
+            }
+            else where += " AND " + "firstName = " + firstName;
         }
         if (lastName != null) {
-            where += (where == "") ? " WHERE " : " AND "
-                    + "lastName = " + lastName;
+            if (where.equals("")){
+                where += " WHERE " + "lastName = " + lastName;
+            }
+            else where += " AND " + "lastName = " + lastName;
         }
+//        if (lastName != null) {
+//            where += (where.equals("")) ? " WHERE " : " AND " + "lastName = " + lastName;
+//        }
         if (nationalCode != null) {
-            where += (where == "") ? " WHERE " : " AND "
-                    + "nationalCode = " + nationalCode;
+            if (where.equals("")){
+                where += " WHERE " + "nationalCode = " + nationalCode;
+            }
+            else where += " AND " + "nationalCode = " + nationalCode;
         }
+//
+//        if (nationalCode != null) {
+//            where += (where.equals("")) ? " WHERE " : " AND " + "nationalCode = " + nationalCode;
+//        }
         if (customerNumber != null) {
-            where += (where == "") ? " WHERE " : " AND "
-                    + "customerNumber = " + customerNumber.toString();
+            if (where.equals("")){
+                where += " WHERE " + "customerNumber = " + customerNumber;
+            }
+            else where += " AND " + "customerNumber = " + customerNumber;
         }
+//        if (customerNumber != null) {
+//            where += (where.equals("")) ? " WHERE " : " AND " + "customerNumber = " + customerNumber.toString();
+//        }
+
+        System.out.println(where);
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM customer " + where);
@@ -115,19 +137,19 @@ public class RealCustomerActions {
     public void updateDatabase(String firstName, String lastName, String nationalCode, Integer customerNumber) {
         String where = "";
         if (firstName != null) {
-            where += (where == "") ? " WHERE " : " AND "
+            where += (where.equals("")) ? " WHERE " : " AND "
                     + "firstName = " + firstName;
         }
         if (lastName != null) {
-            where += (where == "") ? " WHERE " : " AND "
+            where += (where.equals("")) ? " WHERE " : " AND "
                     + "lastName = " + lastName;
         }
         if (nationalCode != null) {
-            where += (where == "") ? " WHERE " : " AND "
+            where += (where.equals("")) ? " WHERE " : " AND "
                     + "nationalCode = " + nationalCode;
         }
         if (customerNumber != null) {
-            where += (where == "") ? " WHERE " : " AND "
+            where += (where.equals("")) ? " WHERE " : " AND "
                     + "customerNumber = " + customerNumber.toString();
         }
         try {
