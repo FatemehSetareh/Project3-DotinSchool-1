@@ -2,6 +2,7 @@ package presentation;
 
 import business.RealCustomer;
 import business.RealLogic;
+import persistence.crud.RealCustomerActions;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,25 +27,17 @@ public class RegisterRealCustomerServlet extends HttpServlet {
         String nationalCode = request.getParameter("nationalCode");
         String birthDate = request.getParameter("birthDate");
         RealCustomer realCustomer = new RealCustomer(firstName, lastName, fatherName, nationalCode, birthDate);
-        System.out.println(realCustomer.getFirstName() + realCustomer.getLastName() + realCustomer.getFatherName() + realCustomer.getNationalCode() + realCustomer.getBirthDate());
         try {
             RealLogic realLogic = new RealLogic();
             realLogic.checkRegisterLogic(realCustomer);
+            out.print(RealCustomerActions.getInsertionSuccess());
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
 
-    public void printSuccessReport() {
-        System.out.println("yesssssssssssssssssssss");
-        out.print("This customer successfully registered...");
     }
-
-    public void printErrorReport() {
-        out.print("Error: This national code is in our database!");
-    }
-
 
 }

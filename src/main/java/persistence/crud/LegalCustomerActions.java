@@ -4,7 +4,6 @@ import business.LegalCustomer;
 import persistence.DotinBankDataBase;
 import presentation.RegisterLegalCustomerServlet;
 
-import java.io.PrintWriter;
 import java.sql.*;
 
 /**
@@ -12,7 +11,6 @@ import java.sql.*;
  */
 public class LegalCustomerActions {
     private Connection connection;
-    private PrintWriter out;
     private PreparedStatement preparedStatement;
     RegisterLegalCustomerServlet registerLegalCustomerServlet;
 
@@ -31,15 +29,15 @@ public class LegalCustomerActions {
             preparedStatement.setString(2, legalCustomer.getFinancialCode());
             preparedStatement.setString(3, legalCustomer.getRegisterDate());
 
+            System.out.println(preparedStatement);
+
             if (preparedStatement.executeUpdate() > 0) {
-                System.out.println("success! legal");
+                System.out.println("success");
                 //registerLegalCustomerServlet.printSuccessReport();
             }
         } catch (Exception e2) {
             //e2.printStackTrace();
             System.out.println("insertion error : legal");
-        } finally {
-            out.close();
         }
     }
 
@@ -100,42 +98,40 @@ public class LegalCustomerActions {
 
         } catch (Exception e2) {
             e2.printStackTrace();
-        } finally {
-            out.close();
         }
     }
 
     public void deleteFromDatabase(Integer customerNumber) {
         try {
-            preparedStatement = connection.prepareStatement("DELETE customer WHERE customerNumber = ?");
-            preparedStatement.setInt(1, customerNumber);
+            preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE customerNumber = '" + customerNumber + "'");
+//            preparedStatement.setInt(1, customerNumber);
             if (preparedStatement.executeUpdate() > 0) {
-                out.print("successfully deleted ...");
+                //out.print("successfully deleted ...");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateDatabase(String corporationName, String financialCode, Integer customerNumber) {
-        String where = "";
+    public void updateDatabase(String corporationName, String financialCode, String registerDate, Integer customerNumber) {
+        String set = "";
         if (corporationName != null) {
-            where += (where == "") ? " WHERE " : " AND "
-                    + "corporationName = " + corporationName;
+            set += (set.equals("")) ? " SET " : " AND " + "corporationName = '" + corporationName + "'";
         }
         if (financialCode != null) {
-            where += (where.equals("")) ? " WHERE " : " AND "
-                    + "financialCode = " + financialCode;
+            set += (set.equals("")) ? " SET " : " AND " + "financialCode = '" + financialCode + "'";
         }
-        if (customerNumber != null) {
-            where += (where == "") ? " WHERE " : " AND "
-                    + "customerNumber = " + customerNumber.toString();
+        if (registerDate != null) {
+            set += (set.equals("")) ? " SET " : " AND " + "registerDate = '" + registerDate + "'";
         }
+//        if (customerNumber != null) {
+//            set += (set == "") ? " SET " : " AND " + "customerNumber = '" + customerNumber + "'";
+//        }
 
         try {
-            preparedStatement = connection.prepareStatement("UPDATE customer " + where);
+            preparedStatement = connection.prepareStatement("UPDATE customer " + set + "WHERE customerNumber = '" + customerNumber + "'");
             if (preparedStatement.executeUpdate() > 0) {
-                out.print("successfully updated ...");
+                //out.print("successfully updated ...");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,7 +140,7 @@ public class LegalCustomerActions {
 
     public void exist(String financialCode) {
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE financialCode= '" + financialCode + "'");
+            preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE financialCode = '" + financialCode + "'");
             if (preparedStatement.executeUpdate() > 0) {
                 //***send reply to legalLogic that this financial code registered before!
             }

@@ -1,6 +1,7 @@
 package presentation;
 
 import business.RealLogic;
+import persistence.crud.RealCustomerActions;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +25,7 @@ public class SearchRealCustomerServlet extends HttpServlet {
         String nationalCode;
         Integer customerNumber;
 
+        //**receive data from html file
         if (!request.getParameter("firstName").equals("")) {
             firstName = request.getParameter("firstName");
         } else firstName = null;
@@ -40,11 +42,32 @@ public class SearchRealCustomerServlet extends HttpServlet {
             customerNumber = Integer.valueOf(request.getParameter("customerNumber"));
         } else customerNumber = null;
 
-        System.out.println(firstName + "\n" + lastName + "\n" + nationalCode + "\n" + customerNumber);
-
         try {
+            //**send data to logic layer
             RealLogic realLogic = new RealLogic();
             realLogic.searchLogic(firstName, lastName, nationalCode, customerNumber);
+
+            //**get output and print response to html file
+            out.print("<html><body>");
+            out.print("<caption>Result:</caption>");
+            out.print("<table width=50% border=1>");
+            out.print("<caption>Result:</caption>");
+            out.print("<tr>");
+            for (int i = 1; i <= RealCustomerActions.getMetaDataResult().getColumnCount(); i++) {
+                out.print("<th>" + RealCustomerActions.getMetaDataResult().getColumnName(i) + "</th>");
+            }
+
+            for (int i = 0; i <= RealCustomerActions.getSearchResultArray().size(); i++) {
+                out.println("<tr><td>" + RealCustomerActions.getSearchResultArray().get(i).getFirstName()
+                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getLastName()
+                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getFatherName()
+                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getNationalCode()
+                        + "</td ><td >" + RealCustomerActions.getSearchResultArray().get(i).getBirthDate()
+                        + "</td ></tr >");
+            }
+            out.print("</table>");
+            out.print("</body></html>");
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

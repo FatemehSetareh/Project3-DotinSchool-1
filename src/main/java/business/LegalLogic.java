@@ -29,4 +29,12 @@ public class LegalLogic {
         //**just a middle wear between UI and DB
         legalCustomerActions.searchDatabase(corporationName, financialCode, customerNumber);
     }
+
+    public void deleteLogic(Integer customerNumber){
+        legalCustomerActions.deleteFromDatabase(customerNumber);
+    }
+
+    public void updateLogic(String corporationName, String financialCode, String registerDate, Integer customerNumber){
+        legalCustomerActions.updateDatabase(corporationName, financialCode, registerDate, customerNumber);
+    }
 }

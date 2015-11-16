@@ -27,10 +27,11 @@
         }
 
         input {
+            background-color: #998297;
+            color: darkblue;
             font-weight: bold;
-            border: 3px solid #998297;
+            border: 3px solid #000000;
             padding: 5pt;
-            height: 25pt;
             border-radius: 7px;
         }
 
@@ -40,24 +41,34 @@
 <body>
 <h1>Dotin Internet Bank</h1>
 
-<h3>Search For An Existing Real Customer</h3>
+<h3>Delete Update</h3>
 
-<p>Search Using These Fields </p>
+<p>Please select one of these actions</p>
 
-<form action="/SearchRealCustomerServlet">
+<form action="\DeleteRealCustomerServlet" method="post">
+    <input type="submit" value="Delete">
+</form>
+
+<form action="\UpdateRealCustomerServlet" method="post">
+    Update this account, customerNumber could not change...
+    <br>
     <input type="text" name="firstName" onfocus="if(this.value == 'First Name') { this.value = ''; }"
            value="First Name">
     <br>
     <input type="text" name="lastName" onfocus="if(this.value == 'Last Name') { this.value = ''; }"
            value="Last Name">
     <br>
+    <input type="text" name="fatherName" onfocus="if(this.value == 'Father Name') { this.value = ''; }"
+           value="Father Name">
+    <br>
     <input type="text" name="nationalCode" onfocus="if(this.value == 'National Code') { this.value = ''; }"
            value="National Code">
     <br>
-    <input type="text" name="customerNumber" onfocus="if(this.value == 'customerNumber') { this.value = ''; }"
-           value="customerNumber">
+    Birthday Date :
     <br>
-    <input type="submit" value="Search">
+    <input type="date" name="birthDate" value="Birthday Date: ">
+    <br>
+    <input type="submit" value="Update">
 </form>
 
 

@@ -24,7 +24,6 @@ PrintWriter out;
         String registerDate = request.getParameter("registerDate");
         LegalCustomer legalCustomer = new LegalCustomer(corporationName, financialCode, registerDate);
 
-
         try {
             LegalLogic legalLogic = new LegalLogic();
             legalLogic.checkRegisterLogic(legalCustomer);

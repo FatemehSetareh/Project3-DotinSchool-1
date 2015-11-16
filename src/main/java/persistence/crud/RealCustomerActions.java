@@ -4,6 +4,7 @@ import business.RealCustomer;
 import persistence.DotinBankDataBase;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by ${Dotin} on ${4/25/2015}.
@@ -11,10 +12,14 @@ import java.sql.*;
 public class RealCustomerActions {
     private Connection connection;
     private PreparedStatement preparedStatement;
+    private static String insertionSuccess;
+    private static ArrayList<RealCustomer> searchResultArray;
+    private static ResultSetMetaData metaDataResult;
 
     public RealCustomerActions() throws SQLException, ClassNotFoundException {
         Class.forName(DotinBankDataBase.JDBC_DRIVER);
         connection = DriverManager.getConnection(DotinBankDataBase.DATABASE_URL, DotinBankDataBase.USERNAME, DotinBankDataBase.PASSWORD);
+        searchResultArray = new ArrayList();
     }
 
     public void insertToDatabase(RealCustomer realCustomer) {
@@ -30,8 +35,10 @@ public class RealCustomerActions {
             System.out.println(preparedStatement);
 
             if (preparedStatement.executeUpdate() > 0) {
-                System.out.println("success");
-            }
+                System.out.println("Success");
+                insertionSuccess = realCustomer.getFirstName() + " " + realCustomer.getLastName() + " Registered Successfully.";
+            } else
+                insertionSuccess = realCustomer.getFirstName() + " " + realCustomer.getLastName() + " Registration Failed.";
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,13 +69,9 @@ public class RealCustomerActions {
 
         try {
             preparedStatement = connection.prepareStatement("SELECT * FROM customer " + where);
-//            out.print("<html><body>");
-//            out.print("<caption>Result:</caption>");
-//            out.print("<table width=50% border=1>");
-//            out.print("<caption>Result:</caption>");
-
             System.out.println(preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(1)
                         + " " + resultSet.getString(2)
@@ -78,67 +81,51 @@ public class RealCustomerActions {
                         + " " + resultSet.getInt(6)
                         + " " + resultSet.getString(7)
                         + " " + resultSet.getString(8)
-                        + " " + resultSet.getString(9));
+                        + " " + resultSet.getString(9)
+                        + "\n");
+                RealCustomer realCustomer = new RealCustomer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
+                searchResultArray.add(realCustomer);
             }
-//            ResultSetMetaData metaDataResult = resultSet.getMetaData();
-//            out.print("<tr>");
-//            for (int i = 1; i <= metaDataResult.getColumnCount(); i++) {
-//                out.print("<th>" + metaDataResult.getColumnName(i) + "</th>");
-//            }
-//            out.print("</tr>");
-//
-//            while (resultSet.next()) {
-//                out.print("<tr><td>" + resultSet.getString(1)
-//                        + "</td><td>" + resultSet.getString(2)
-//                        + "</td ><td > " + resultSet.getString(3)
-//                        + " </td ><td > " + resultSet.getString(4)
-//                        + " </td ><td > " + resultSet.getDate(5)
-//                        + " </td ><td > " + resultSet.getInt(6)
-//                        + " </td ></tr > ");
-//            }
-//            out.print("</table>");
-//            out.print("</body></html>");
+
+            metaDataResult = resultSet.getMetaData();
         } catch (Exception e2) {
             e2.printStackTrace();
-        } finally {
-            //out.close();
         }
     }
 
     public void deleteFromDatabase(Integer customerNumber) {
         try {
-            preparedStatement = connection.prepareStatement("DELETE customer WHERE customerNumber = ?");
-            preparedStatement.setInt(1, customerNumber);
+            preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE customerNumber = '" + customerNumber + "'");
             if (preparedStatement.executeUpdate() > 0) {
-                //out.print("successfully deleted...");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateDatabase(String firstName, String lastName, String nationalCode, Integer customerNumber) {
-        String where = "";
+    public void updateDatabase(String firstName, String lastName, String fatherName, String nationalCode, String birthDate, Integer customerNumber) {
+        String set = "";
         if (firstName != null) {
-            where += (where.equals("")) ? " WHERE " : " AND "
-                    + "firstName = " + firstName;
+            set += (set.equals("")) ? " SET " : " AND " + "firstName = '" + firstName + "'";
         }
         if (lastName != null) {
-            where += (where.equals("")) ? " WHERE " : " AND "
-                    + "lastName = " + lastName;
+            set += (set.equals("")) ? " SET " : " AND " + "lastName = '" + lastName + "'";
+        }
+        if (fatherName != null) {
+            set += (set.equals("")) ? " SET " : " AND " + "fatherName = '" + fatherName + "'";
         }
         if (nationalCode != null) {
-            where += (where.equals("")) ? " WHERE " : " AND "
-                    + "nationalCode = " + nationalCode;
+            set += (set.equals("")) ? " SET " : " AND " + "nationalCode = '" + nationalCode + "'";
         }
-        if (customerNumber != null) {
-            where += (where.equals("")) ? " WHERE " : " AND "
-                    + "customerNumber = " + customerNumber.toString();
+        if (birthDate != null) {
+            set += (set.equals("")) ? " SET " : " AND " + "birthDate = '" + birthDate + "'";
         }
+//        if (customerNumber != null) {
+//            set += (set.equals("")) ? " SET " : " AND " + "customerNumber = '" + customerNumber + "'";
+//        }
         try {
-            preparedStatement = connection.prepareStatement("UPDATE customer " + where);
+            preparedStatement = connection.prepareStatement("UPDATE customer " + set + "WHERE customerNumber = '" + customerNumber + "'");
             if (preparedStatement.executeUpdate() > 0) {
-               // out.print("successfully updated...");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,4 +147,15 @@ public class RealCustomerActions {
 //    }
 
 
+    public static String getInsertionSuccess() {
+        return insertionSuccess;
+    }
+
+    public static ArrayList<RealCustomer> getSearchResultArray() {
+        return searchResultArray;
+    }
+
+    public static ResultSetMetaData getMetaDataResult() {
+        return metaDataResult;
+    }
 }

@@ -1,12 +1,13 @@
 package presentation;
 
-import persistence.crud.LegalCustomerActions;
+import business.LegalLogic;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
@@ -18,14 +19,13 @@ public class DeleteLegalCustomerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html");
-        //PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
 
         Integer customerNumber = Integer.valueOf(request.getParameter("customerNumber"));
 
         try {
-            LegalCustomerActions legalCustomerActions = new LegalCustomerActions();
-            legalCustomerActions.deleteFromDatabase(customerNumber);
-
+            LegalLogic legalLogic = new LegalLogic();
+            legalLogic.deleteLogic(customerNumber);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
