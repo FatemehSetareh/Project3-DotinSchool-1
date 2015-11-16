@@ -73,20 +73,9 @@ public class RealCustomerActions {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                System.out.println(resultSet.getString(1)
-                        + " " + resultSet.getString(2)
-                        + " " + resultSet.getString(3)
-                        + " " + resultSet.getString(4)
-                        + " " + resultSet.getString(5)
-                        + " " + resultSet.getInt(6)
-                        + " " + resultSet.getString(7)
-                        + " " + resultSet.getString(8)
-                        + " " + resultSet.getString(9)
-                        + "\n");
-                RealCustomer realCustomer = new RealCustomer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
+                RealCustomer realCustomer = new RealCustomer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
                 searchResultArray.add(realCustomer);
             }
-
             metaDataResult = resultSet.getMetaData();
         } catch (Exception e2) {
             e2.printStackTrace();
@@ -145,7 +134,6 @@ public class RealCustomerActions {
 //            e.printStackTrace();
 //        }
 //    }
-
 
     public static String getInsertionSuccess() {
         return insertionSuccess;

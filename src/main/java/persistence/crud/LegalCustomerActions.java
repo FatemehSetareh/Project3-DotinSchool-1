@@ -2,9 +2,9 @@ package persistence.crud;
 
 import business.LegalCustomer;
 import persistence.DotinBankDataBase;
-import presentation.RegisterLegalCustomerServlet;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by ${Dotin} on ${4/25/2015}.
@@ -12,12 +12,15 @@ import java.sql.*;
 public class LegalCustomerActions {
     private Connection connection;
     private PreparedStatement preparedStatement;
-    RegisterLegalCustomerServlet registerLegalCustomerServlet;
+    private static String insertionSuccess;
+    private static ArrayList<LegalCustomer> searchResultArray;
+    private static ResultSetMetaData metaDataResult;
 
 
     public LegalCustomerActions() throws SQLException, ClassNotFoundException {
         Class.forName(DotinBankDataBase.JDBC_DRIVER);
         connection = DriverManager.getConnection(DotinBankDataBase.DATABASE_URL, DotinBankDataBase.USERNAME, DotinBankDataBase.PASSWORD);
+        searchResultArray = new ArrayList();
     }
 
     public void insertToDatabase(LegalCustomer legalCustomer) {
@@ -28,16 +31,14 @@ public class LegalCustomerActions {
             preparedStatement.setString(1, legalCustomer.getCorporationName());
             preparedStatement.setString(2, legalCustomer.getFinancialCode());
             preparedStatement.setString(3, legalCustomer.getRegisterDate());
-
             System.out.println(preparedStatement);
 
             if (preparedStatement.executeUpdate() > 0) {
-                System.out.println("success");
-                //registerLegalCustomerServlet.printSuccessReport();
-            }
+                insertionSuccess = legalCustomer.getCorporationName() + " Registered Successfully.";
+            } else
+                insertionSuccess = legalCustomer.getCorporationName() + " Registration Failed.";
         } catch (Exception e2) {
-            //e2.printStackTrace();
-            System.out.println("insertion error : legal");
+            e2.printStackTrace();
         }
     }
 
@@ -61,41 +62,14 @@ public class LegalCustomerActions {
 
         try {
             preparedStatement = connection.prepareStatement("SELECT * FROM customer " + where);
-
-//            out.print("<table width=50% border=1>");
-//            out.print("<caption>Result:</caption>");
-
-
             System.out.println(preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString(1)
-                        + " " + resultSet.getString(2)
-                        + " " + resultSet.getString(3)
-                        + " " + resultSet.getString(4)
-                        + " " + resultSet.getString(5)
-                        + " " + resultSet.getInt(6)
-                        + " " + resultSet.getString(7)
-                        + " " + resultSet.getString(8)
-                        + " " + resultSet.getString(9));
-            }
-//            ResultSetMetaData metaDataResult = resultSet.getMetaData();
-//            out.print("<tr>");
-//            for (int i = 1; i <= metaDataResult.getColumnCount(); i++) {
-//                out.print("<th>" + metaDataResult.getColumnName(i) + "</th>");
-//            }
-//            out.print("</tr>");
-//
-//            while (resultSet.next()) {
-//                out.print("<tr><td>" + resultSet.getString(1)
-//                        + "</td><td>" + resultSet.getString(2)
-//                        + "</td ><td > " + resultSet.getDate(3)
-//                        + " </td ><td > " + resultSet.getInt(4)
-//                        + " </td ></tr > ");
-//            }
-//
-//            out.print("</table>");
 
+            while (resultSet.next()) {
+                LegalCustomer legalCustomer = new LegalCustomer(resultSet.getInt(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9));
+                searchResultArray.add(legalCustomer);
+            }
+            metaDataResult = resultSet.getMetaData();
         } catch (Exception e2) {
             e2.printStackTrace();
         }
@@ -104,9 +78,7 @@ public class LegalCustomerActions {
     public void deleteFromDatabase(Integer customerNumber) {
         try {
             preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE customerNumber = '" + customerNumber + "'");
-//            preparedStatement.setInt(1, customerNumber);
             if (preparedStatement.executeUpdate() > 0) {
-                //out.print("successfully deleted ...");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,22 +103,31 @@ public class LegalCustomerActions {
         try {
             preparedStatement = connection.prepareStatement("UPDATE customer " + set + "WHERE customerNumber = '" + customerNumber + "'");
             if (preparedStatement.executeUpdate() > 0) {
-                //out.print("successfully updated ...");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void exist(String financialCode) {
-        try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE financialCode = '" + financialCode + "'");
-            if (preparedStatement.executeUpdate() > 0) {
-                //***send reply to legalLogic that this financial code registered before!
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//    public void exist(String financialCode) {
+//        try {
+//            preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE financialCode = '" + financialCode + "'");
+//            if (preparedStatement.executeUpdate() > 0) {
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
+    public static ResultSetMetaData getMetaDataResult() {
+        return metaDataResult;
+    }
+
+    public static ArrayList<LegalCustomer> getSearchResultArray() {
+        return searchResultArray;
+    }
+
+    public static String getInsertionSuccess() {
+        return insertionSuccess;
     }
 }

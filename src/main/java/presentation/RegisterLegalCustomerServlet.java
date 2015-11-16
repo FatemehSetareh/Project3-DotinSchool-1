@@ -2,6 +2,7 @@ package presentation;
 
 import business.LegalCustomer;
 import business.LegalLogic;
+import persistence.crud.LegalCustomerActions;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,14 +20,19 @@ PrintWriter out;
         response.setContentType("text/html");
         out = response.getWriter();
 
+        //**get data from html file
         String corporationName = request.getParameter("corporationName");
         String financialCode = request.getParameter("financialCode");
         String registerDate = request.getParameter("registerDate");
-        LegalCustomer legalCustomer = new LegalCustomer(corporationName, financialCode, registerDate);
+        LegalCustomer legalCustomer = new LegalCustomer(null, corporationName, financialCode, registerDate);
 
         try {
+            //**send data to logic layer
             LegalLogic legalLogic = new LegalLogic();
             legalLogic.checkRegisterLogic(legalCustomer);
+
+            //**get output and show result to user
+            out.print(LegalCustomerActions.getInsertionSuccess());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

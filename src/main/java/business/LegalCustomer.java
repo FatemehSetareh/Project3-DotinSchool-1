@@ -1,14 +1,14 @@
 package business;
 
-/**
- * Created by ${Dotin} on ${4/25/2015}.
- */
+
 public class LegalCustomer extends Customer{
     private String corporationName;
     private String financialCode;
     private String registerDate;
+    private Integer customerNumber;
 
-    public LegalCustomer(String corporationName, String financialCode, String registerDate) {
+    public LegalCustomer(Integer customerNumber, String corporationName, String financialCode, String registerDate) {
+        this.customerNumber = customerNumber;
         this.corporationName = corporationName;
         this.financialCode = financialCode;
         this.registerDate = registerDate;
@@ -32,10 +32,6 @@ public class LegalCustomer extends Customer{
 
     public String getRegisterDate() {
         return registerDate;
-    }
-
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
     }
 
     public Integer getCustomerNumber() {

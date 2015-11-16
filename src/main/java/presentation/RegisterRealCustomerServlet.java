@@ -21,15 +21,19 @@ public class RegisterRealCustomerServlet extends HttpServlet {
         response.setContentType("text/html");
         out = response.getWriter();
 
+        //**get data from html file
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String fatherName = request.getParameter("fatherName");
         String nationalCode = request.getParameter("nationalCode");
         String birthDate = request.getParameter("birthDate");
-        RealCustomer realCustomer = new RealCustomer(firstName, lastName, fatherName, nationalCode, birthDate);
+        RealCustomer realCustomer = new RealCustomer(firstName, lastName, fatherName, nationalCode, birthDate, null);
         try {
+            //**send data to logic layer
             RealLogic realLogic = new RealLogic();
             realLogic.checkRegisterLogic(realCustomer);
+
+            //**get output and show result to user
             out.print(RealCustomerActions.getInsertionSuccess());
 
         } catch (SQLException e) {

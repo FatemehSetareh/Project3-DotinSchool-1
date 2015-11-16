@@ -9,13 +9,15 @@ public class RealCustomer extends Customer{
     private String fatherName;
     private String nationalCode;
     private String birthDate;
+    private Integer customerNumber;
 
-    public RealCustomer(String firstName, String lastName, String fatherName, String nationalCode, String birthDate) {
+    public RealCustomer(String firstName, String lastName, String fatherName, String nationalCode, String birthDate, Integer customerNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.fatherName = fatherName;
         this.nationalCode = nationalCode;
         this.birthDate = birthDate;
+        this.customerNumber = customerNumber;
     }
 
     public String getFirstName() {
@@ -38,10 +40,6 @@ public class RealCustomer extends Customer{
         return fatherName;
     }
 
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
-    }
-
     public String getNationalCode() {
         return nationalCode;
     }
@@ -54,7 +52,7 @@ public class RealCustomer extends Customer{
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public Integer getCustomerNumber() {
+        return customerNumber;
     }
 }

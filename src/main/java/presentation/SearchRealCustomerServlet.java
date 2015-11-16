@@ -49,21 +49,22 @@ public class SearchRealCustomerServlet extends HttpServlet {
 
             //**get output and print response to html file
             out.print("<html><body>");
-            out.print("<caption>Result:</caption>");
+            out.print("<caption>Search Result:</caption>");
             out.print("<table width=50% border=1>");
             out.print("<caption>Result:</caption>");
             out.print("<tr>");
-            for (int i = 1; i <= RealCustomerActions.getMetaDataResult().getColumnCount(); i++) {
+            for (int i = 1; i <= 6; i++) {
                 out.print("<th>" + RealCustomerActions.getMetaDataResult().getColumnName(i) + "</th>");
             }
-
             for (int i = 0; i <= RealCustomerActions.getSearchResultArray().size(); i++) {
                 out.println("<tr><td>" + RealCustomerActions.getSearchResultArray().get(i).getFirstName()
                         + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getLastName()
                         + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getFatherName()
                         + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getNationalCode()
-                        + "</td ><td >" + RealCustomerActions.getSearchResultArray().get(i).getBirthDate()
-                        + "</td ></tr >");
+                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getBirthDate()
+                        + "</td><td onclick=\"location.href='DeleteAndUpdateRealCustomerPage.html';\" style=\"cursor:pointer\">"
+                        + RealCustomerActions.getSearchResultArray().get(i).getCustomerNumber()
+                        + "</td></tr>");
             }
             out.print("</table>");
             out.print("</body></html>");
