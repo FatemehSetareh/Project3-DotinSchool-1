@@ -6,15 +6,15 @@ import persistence.DotinBankDataBase;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- * Created by ${Dotin} on ${4/25/2015}.
- */
+
 public class RealCustomerActions {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private static String insertionSuccess;
     private static ArrayList<RealCustomer> searchResultArray;
     private static ResultSetMetaData metaDataResult;
+    private static String deletionSuccess;
+    private static String updatingSuccess;
 
     public RealCustomerActions() throws SQLException, ClassNotFoundException {
         Class.forName(DotinBankDataBase.JDBC_DRIVER);
@@ -86,6 +86,9 @@ public class RealCustomerActions {
         try {
             preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE customerNumber = '" + customerNumber + "'");
             if (preparedStatement.executeUpdate() > 0) {
+                deletionSuccess = "Account " + customerNumber + " successfully deleted";
+            } else {
+                deletionSuccess = "Account " + customerNumber + " could not deleted";
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,28 +97,39 @@ public class RealCustomerActions {
 
     public void updateDatabase(String firstName, String lastName, String fatherName, String nationalCode, String birthDate, Integer customerNumber) {
         String set = "";
-        if (firstName != null) {
-            set += (set.equals("")) ? " SET " : " AND " + "firstName = '" + firstName + "'";
+        if (!firstName.equals("")) {
+            if (set.equals("")) {
+                set += " SET " + "firstName = '" + firstName + "'";
+            } else set += " , " + "firstName = '" + firstName + "'";
         }
-        if (lastName != null) {
-            set += (set.equals("")) ? " SET " : " AND " + "lastName = '" + lastName + "'";
+        if (!lastName.equals("")) {
+            if (set.equals("")) {
+                set += " SET " + "lastName = '" + lastName + "'";
+            } else set += " , " + "lastName = '" + lastName + "'";
         }
-        if (fatherName != null) {
-            set += (set.equals("")) ? " SET " : " AND " + "fatherName = '" + fatherName + "'";
+        if (!fatherName.equals("")) {
+            if (set.equals("")) {
+                set += " SET " + "fatherName = '" + fatherName + "'";
+            } else set += " , " + "fatherName = '" + fatherName + "'";
         }
-        if (nationalCode != null) {
-            set += (set.equals("")) ? " SET " : " AND " + "nationalCode = '" + nationalCode + "'";
+        if (!nationalCode.equals("")) {
+            if (set.equals("")) {
+                set += " SET " + "nationalCode = '" + nationalCode + "'";
+            } else set += " , " + "nationalCode = '" + nationalCode + "'";
         }
-        if (birthDate != null) {
-            set += (set.equals("")) ? " SET " : " AND " + "birthDate = '" + birthDate + "'";
+        if (!birthDate.equals("")) {
+            if (set.equals("")) {
+                set += " SET " + "birthDate = '" + birthDate + "'";
+            } else set += " , " + "birthDate = '" + birthDate + "'";
         }
-//        if (customerNumber != null) {
-//            set += (set.equals("")) ? " SET " : " AND " + "customerNumber = '" + customerNumber + "'";
-//        }
+
         try {
-            preparedStatement = connection.prepareStatement("UPDATE customer " + set + "WHERE customerNumber = '" + customerNumber + "'");
+            preparedStatement = connection.prepareStatement("UPDATE customer " + set + " WHERE customerNumber = " + customerNumber);
+            System.out.println(preparedStatement);
             if (preparedStatement.executeUpdate() > 0) {
-            }
+                updatingSuccess = " Updated Successfully.";
+            } else
+                updatingSuccess = " Updating Not Successful.";
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -145,5 +159,13 @@ public class RealCustomerActions {
 
     public static ResultSetMetaData getMetaDataResult() {
         return metaDataResult;
+    }
+
+    public static String getDeletionSuccess() {
+        return deletionSuccess;
+    }
+
+    public static String getUpdatingSuccess() {
+        return updatingSuccess;
     }
 }

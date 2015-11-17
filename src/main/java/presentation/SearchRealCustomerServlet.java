@@ -20,6 +20,7 @@ public class SearchRealCustomerServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
+
         String firstName;
         String lastName;
         String nationalCode;
@@ -48,11 +49,11 @@ public class SearchRealCustomerServlet extends HttpServlet {
             realLogic.searchLogic(firstName, lastName, nationalCode, customerNumber);
 
             //**get output and print response to html file
-            out.print("<html><body>");
-            out.print("<caption>Search Result:</caption>");
-            out.print("<table width=50% border=1>");
-            out.print("<caption>Result:</caption>");
-            out.print("<tr>");
+            out.print("<html><body>"
+                    + "<caption>Search Result:</caption>"
+                    + "<table width=50% border=2>"
+                    + "<caption>Result:</caption>"
+                    + "<tr>");
             for (int i = 1; i <= 6; i++) {
                 out.print("<th>" + RealCustomerActions.getMetaDataResult().getColumnName(i) + "</th>");
             }
@@ -62,18 +63,25 @@ public class SearchRealCustomerServlet extends HttpServlet {
                         + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getFatherName()
                         + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getNationalCode()
                         + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getBirthDate()
-                        + "</td><td onclick=\"location.href='DeleteAndUpdateRealCustomerPage.html';\" style=\"cursor:pointer\">"
-                        + RealCustomerActions.getSearchResultArray().get(i).getCustomerNumber()
+                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getCustomerNumber()
+                        + "<form action=\"/UpdateRealCustomerServlet\">"
+                        + "</td><input type='hidden' name=\"customerNumber\" value=\"" + RealCustomerActions.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
+                        + "<td align='center'><input type='submit' value=\"Update\"></td>"
+                        + "</form>"
+                        + "<form action=\"/DeleteRealCustomerServlet\">"
+                        + "</td><input type='hidden' name=\"customerNumber\" value=\"" + RealCustomerActions.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
+                        + "<td align='center'><input type='submit' value=\"Delete\"></td>"
+                        + "</form>"
                         + "</td></tr>");
+
             }
-            out.print("</table>");
-            out.print("</body></html>");
+            out.print("</table>"
+                    + "</body></html>");
 
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }

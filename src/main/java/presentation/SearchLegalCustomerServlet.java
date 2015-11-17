@@ -45,21 +45,30 @@ public class SearchLegalCustomerServlet extends HttpServlet {
             //**get output and print response to html file
             out.print("<html><body>");
             out.print("<caption>Search Result:</caption>");
-            out.print("<table width=50% border=1>");
+            //out.print("<form action=\"/DeleteLegalCustomerServlet\">");
+            out.print("<table width=50% border=2>");
             out.print("<caption>Result:</caption>");
             out.print("<tr>");
             for (int i = 6; i <= 9; i++) {
                 out.print("<th>" + LegalCustomerActions.getMetaDataResult().getColumnName(i) + "</th>");
             }
             for (int i = 0; i <= LegalCustomerActions.getSearchResultArray().size(); i++) {
-                out.println("<tr><td onclick=\"location.href='DeleteAndUpdateRealCustomerPage.html';\" style=\"cursor:pointer\">"
-                        + LegalCustomerActions.getSearchResultArray().get(i).getCustomerNumber()
+                out.println("<tr><td>" + LegalCustomerActions.getSearchResultArray().get(i).getCustomerNumber()
                         + "</td><td>" + LegalCustomerActions.getSearchResultArray().get(i).getCorporationName()
                         + "</td><td>" + LegalCustomerActions.getSearchResultArray().get(i).getFinancialCode()
                         + "</td><td>" + LegalCustomerActions.getSearchResultArray().get(i).getRegisterDate()
+                        + "<form action=\"/UpdateRealCustomerServlet\">"
+                        + "</td><input type='hidden' name=\"customerNumber\" value=\"" + LegalCustomerActions.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
+                        + "<td align='center'><input type='submit' value=\"Update\"></td>"
+                        + "</form>"
+                        + "<form action=\"/DeleteRealCustomerServlet\">"
+                        + "</td><input type='hidden' name=\"customerNumber\" value=\"" + LegalCustomerActions.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
+                        + "<td align='center'><input type='submit' value=\"Delete\"></td>"
+                        + "</form>"
                         + "</td></tr>");
             }
             out.print("</table>");
+            //out.print("</form>");
             out.print("</body></html>");
 
         } catch (SQLException e) {

@@ -15,6 +15,7 @@ public class LegalCustomerActions {
     private static String insertionSuccess;
     private static ArrayList<LegalCustomer> searchResultArray;
     private static ResultSetMetaData metaDataResult;
+    private static String deletionSuccess;
 
 
     public LegalCustomerActions() throws SQLException, ClassNotFoundException {
@@ -79,6 +80,9 @@ public class LegalCustomerActions {
         try {
             preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE customerNumber = '" + customerNumber + "'");
             if (preparedStatement.executeUpdate() > 0) {
+                deletionSuccess = "Account " + customerNumber + " successfully deleted";
+            } else {
+                deletionSuccess = "Account " + customerNumber + " could not deleted";
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -129,5 +133,9 @@ public class LegalCustomerActions {
 
     public static String getInsertionSuccess() {
         return insertionSuccess;
+    }
+
+    public static String getDeletionSuccess() {
+        return deletionSuccess;
     }
 }

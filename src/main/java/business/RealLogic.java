@@ -31,12 +31,14 @@ public class RealLogic {
         realCustomerActions.searchDatabase(firstName, lastName, nationalCode, customerNumber);
     }
 
-    public void deleteLogic(Integer customerNumber){
+    public void updateLogic(String firstName, String lastName, String fatherName, String nationalCode, String birthDate, Integer customerNumber) {
+        System.out.println("111111111111111111111111111111111111111111111111");
+        realCustomerActions.updateDatabase(firstName, lastName, fatherName, nationalCode, birthDate, customerNumber);
+    }
+
+    public void deleteLogic(Integer customerNumber) {
         realCustomerActions.deleteFromDatabase(customerNumber);
     }
 
-    public void updateLogic(String firstName, String lastName,String fatherName, String nationalCode,String birthDate, Integer customerNumber){
-        realCustomerActions.updateDatabase(firstName, lastName, fatherName, nationalCode, birthDate, customerNumber);
-    }
 
 }
