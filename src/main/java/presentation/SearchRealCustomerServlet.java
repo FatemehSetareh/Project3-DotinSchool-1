@@ -49,11 +49,51 @@ public class SearchRealCustomerServlet extends HttpServlet {
             realLogic.searchLogic(firstName, lastName, nationalCode, customerNumber);
 
             //**get output and print response to html file
-            out.print("<html><body>"
-                    + "<caption>Search Result:</caption>"
-                    + "<table width=50% border=2>"
-                    + "<caption>Result:</caption>"
-                    + "<tr>");
+            out.print("<html>" +
+                    "<head>" +
+                    "    <style>" +
+                    "        body {" +
+                    "            background: lightpink center;" +
+                    "            padding: 25pt;" +
+                    "        }" +
+                    "" +
+                    "        h1 {" +
+                    "            font-size: 250%;" +
+                    "            color: darkblue;" +
+                    "            text-align: center;" +
+                    "            margin-top: 60pt;" +
+                    "        }" +
+                    "" +
+                    "        h3 {" +
+                    "            font-size: 15pt;" +
+                    "            color: black;" +
+                    "            text-align: center;" +
+                    "            margin-top: 30pt;" +
+                    "        }" +
+                    "" +
+                    "        p {" +
+                    "            font-size: 11pt;" +
+                    "            text-align: left;" +
+                    "            margin-top: 60pt;" +
+                    "        }" +
+                    "" +
+                    "        input {" +
+                    "            font-weight: bold;" +
+                    "            border: 3px solid #998297;" +
+                    "            padding: 5pt;" +
+                    "            height: 25pt;" +
+                    "            border-radius: 7px;" +
+                    "        }" +
+                    "" +
+                    "    </style>" +
+                    "</head>" +
+                    "" +
+                    "<body>" +
+                    "<h1>Dotin Internet Bank</h1>" +
+                    "" +
+                    "<h3>Search Result For A Real Customer</h3>" +
+                    "<caption>Search Result:</caption>" +
+                    "<table width=50% border=2>");
             for (int i = 1; i <= 6; i++) {
                 out.print("<th>" + RealCustomerActions.getMetaDataResult().getColumnName(i) + "</th>");
             }

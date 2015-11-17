@@ -64,7 +64,7 @@ public class UpdateRealCustomerServlet extends HttpServlet {
                 "</head>" +
                 "<body>" +
                 "<h1>Dotin Internet Bank</h1>" +
-                "<h3>Update Form</h3>" +
+                "<h3>Real Update Form</h3>" +
                 "<form action=\"\\UpdateRealCustomerServlet\" method='post'>" +
                 "    customerNumber is : " + customerNumber + " could not change..." +
                 "    <br>" +

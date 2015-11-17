@@ -16,6 +16,7 @@ public class LegalCustomerActions {
     private static ArrayList<LegalCustomer> searchResultArray;
     private static ResultSetMetaData metaDataResult;
     private static String deletionSuccess;
+    private static String updatingSuccess;
 
 
     public LegalCustomerActions() throws SQLException, ClassNotFoundException {
@@ -91,23 +92,28 @@ public class LegalCustomerActions {
 
     public void updateDatabase(String corporationName, String financialCode, String registerDate, Integer customerNumber) {
         String set = "";
-        if (corporationName != null) {
-            set += (set.equals("")) ? " SET " : " AND " + "corporationName = '" + corporationName + "'";
+        if (!corporationName.equals("")) {
+            if (set.equals("")) {
+                set += " SET " + "corporationName = '" + corporationName + "'";
+            } else set += " , " + "corporationName = '" + corporationName + "'";
         }
-        if (financialCode != null) {
-            set += (set.equals("")) ? " SET " : " AND " + "financialCode = '" + financialCode + "'";
+        if (!financialCode.equals("")) {
+            if (set.equals("")) {
+                set += " SET " + "financialCode = '" + financialCode + "'";
+            } else set += " , " + "financialCode = '" + financialCode + "'";
         }
-        if (registerDate != null) {
-            set += (set.equals("")) ? " SET " : " AND " + "registerDate = '" + registerDate + "'";
+        if (!registerDate.equals("")) {
+            if (set.equals("")) {
+                set += " SET " + "registerDate = '" + registerDate + "'";
+            } else set += " , " + "registerDate = '" + registerDate + "'";
         }
-//        if (customerNumber != null) {
-//            set += (set == "") ? " SET " : " AND " + "customerNumber = '" + customerNumber + "'";
-//        }
 
         try {
-            preparedStatement = connection.prepareStatement("UPDATE customer " + set + "WHERE customerNumber = '" + customerNumber + "'");
+            preparedStatement = connection.prepareStatement("UPDATE customer " + set + "WHERE customerNumber = " + customerNumber);
             if (preparedStatement.executeUpdate() > 0) {
-            }
+                updatingSuccess = " Updated Successfully.";
+            } else
+                updatingSuccess = " Updating Not Successful.";
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -137,5 +143,9 @@ public class LegalCustomerActions {
 
     public static String getDeletionSuccess() {
         return deletionSuccess;
+    }
+
+    public static String getUpdatingSuccess() {
+        return updatingSuccess;
     }
 }

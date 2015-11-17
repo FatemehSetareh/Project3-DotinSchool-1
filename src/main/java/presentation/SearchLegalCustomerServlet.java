@@ -43,11 +43,52 @@ public class SearchLegalCustomerServlet extends HttpServlet {
             legalLogic.searchLogic(corporationName, financialCode, customerNumber);
 
             //**get output and print response to html file
-            out.print("<html><body>");
-            out.print("<caption>Search Result:</caption>");
+            out.print("<html>" +
+                    "<head>" +
+                    "    <style>" +
+                    "        body {" +
+                    "            background: lightpink center;" +
+                    "            padding: 25pt;" +
+                    "        }" +
+                    "" +
+                    "        h1 {" +
+                    "            font-size: 250%;" +
+                    "            color: darkblue;" +
+                    "            text-align: center;" +
+                    "            margin-top: 60pt;" +
+                    "        }" +
+                    "" +
+                    "        h3 {" +
+                    "            font-size: 15pt;" +
+                    "            color: black;" +
+                    "            text-align: center;" +
+                    "            margin-top: 30pt;" +
+                    "        }" +
+                    "" +
+                    "        p {" +
+                    "            font-size: 11pt;" +
+                    "            text-align: left;" +
+                    "            margin-top: 60pt;" +
+                    "        }" +
+                    "" +
+                    "        input {" +
+                    "            font-weight: bold;" +
+                    "            border: 3px solid #998297;" +
+                    "            padding: 5pt;" +
+                    "            height: 25pt;" +
+                    "            border-radius: 7px;" +
+                    "        }" +
+                    "" +
+                    "    </style>" +
+                    "</head>" +
+                    "" +
+                    "<body>" +
+                    "<h1>Dotin Internet Bank</h1>" +
+                    "" +
+                    "<h3>Search Result For A Legal Customer</h3>" +
+                    "<caption>Search Result:</caption>");
             //out.print("<form action=\"/DeleteLegalCustomerServlet\">");
             out.print("<table width=50% border=2>");
-            out.print("<caption>Result:</caption>");
             out.print("<tr>");
             for (int i = 6; i <= 9; i++) {
                 out.print("<th>" + LegalCustomerActions.getMetaDataResult().getColumnName(i) + "</th>");
@@ -57,11 +98,11 @@ public class SearchLegalCustomerServlet extends HttpServlet {
                         + "</td><td>" + LegalCustomerActions.getSearchResultArray().get(i).getCorporationName()
                         + "</td><td>" + LegalCustomerActions.getSearchResultArray().get(i).getFinancialCode()
                         + "</td><td>" + LegalCustomerActions.getSearchResultArray().get(i).getRegisterDate()
-                        + "<form action=\"/UpdateRealCustomerServlet\">"
+                        + "<form action=\"/UpdateLegalCustomerServlet\">"
                         + "</td><input type='hidden' name=\"customerNumber\" value=\"" + LegalCustomerActions.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
                         + "<td align='center'><input type='submit' value=\"Update\"></td>"
                         + "</form>"
-                        + "<form action=\"/DeleteRealCustomerServlet\">"
+                        + "<form action=\"/DeleteLegalCustomerServlet\">"
                         + "</td><input type='hidden' name=\"customerNumber\" value=\"" + LegalCustomerActions.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
                         + "<td align='center'><input type='submit' value=\"Delete\"></td>"
                         + "</form>"
