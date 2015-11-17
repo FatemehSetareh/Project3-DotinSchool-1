@@ -18,16 +18,8 @@ public class LegalCustomer extends Customer{
         return corporationName;
     }
 
-    public void setCorporationName(String corporationName) {
-        this.corporationName = corporationName;
-    }
-
     public String getFinancialCode() {
         return financialCode;
-    }
-
-    public void setFinancialCode(String financialCode) {
-        this.financialCode = financialCode;
     }
 
     public String getRegisterDate() {

@@ -1,9 +1,7 @@
 package business;
 
-/**
- * Created by ${Dotin} on ${4/25/2015}.
- */
-public class RealCustomer extends Customer{
+
+public class RealCustomer extends Customer {
     private String firstName;
     private String lastName;
     private String fatherName;
@@ -24,16 +22,8 @@ public class RealCustomer extends Customer{
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getFatherName() {
@@ -42,10 +32,6 @@ public class RealCustomer extends Customer{
 
     public String getNationalCode() {
         return nationalCode;
-    }
-
-    public void setNationalCode(String nationalCode) {
-        this.nationalCode = nationalCode;
     }
 
     public String getBirthDate() {

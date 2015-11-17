@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 public class UpdateRealCustomerServlet extends HttpServlet {
     Integer customerNumber;
+
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -25,42 +26,7 @@ public class UpdateRealCustomerServlet extends HttpServlet {
 
         out.print("<html><head>" +
                 "<head>" +
-                "    <style>" +
-                "        body {" +
-                "            background: lightpink center;" +
-                "            padding: 25pt;" +
-                "        }" +
-                "" +
-                "        h1 {" +
-                "            font-size: 250%;" +
-                "            color: darkblue;" +
-                "            text-align: center;" +
-                "            margin-top: 60pt;" +
-                "        }" +
-                "" +
-                "        h3 {" +
-                "            font-size: 15pt;" +
-                "            color: black;" +
-                "            text-align: center;" +
-                "            margin-top: 30pt;" +
-                "        }" +
-                "" +
-                "        p {" +
-                "            font-size: 11pt;" +
-                "            text-align: left;" +
-                "            margin-top: 60pt;" +
-                "        }" +
-                "" +
-                "        input {" +
-                "            background-color: #998297;" +
-                "            color: darkblue;" +
-                "            font-weight: bold;" +
-                "            border: 3px solid #000000;" +
-                "            padding: 5pt;" +
-                "            border-radius: 7px;" +
-                "        }" +
-                "" +
-                "    </style>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"Theme.css\" media=\"screen\" />"+
                 "</head>" +
                 "<body>" +
                 "<h1>Dotin Internet Bank</h1>" +
@@ -107,7 +73,17 @@ public class UpdateRealCustomerServlet extends HttpServlet {
             RealLogic realLogic = new RealLogic();
             realLogic.updateLogic(firstName, lastName, fatherName, nationalCode, birthDate, customerNumber);
 
-            out.print(RealCustomerActions.getUpdatingSuccess());
+            out.print("<html>" +
+                    "<head>" +
+                    "<link rel=\"stylesheet\" type=\"text/css\" href=\"Theme.css\" media=\"screen\" />" +
+                    "</head>" +
+                    "" +
+                    "<body>" +
+                    "<h1>Dotin Internet Bank</h1>" +
+                    "" +
+                    "<h3>" + RealCustomerActions.getUpdatingSuccess() + "</h3>" +
+                    "</body>" +
+                    "</html>");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

@@ -34,7 +34,17 @@ public class RegisterRealCustomerServlet extends HttpServlet {
             realLogic.checkRegisterLogic(realCustomer);
 
             //**get output and show result to user
-            out.print(RealCustomerActions.getInsertionSuccess());
+            out.print("<html>" +
+                    "<head>" +
+                    "<link rel=\"stylesheet\" type=\"text/css\" href=\"Theme.css\" media=\"screen\" />" +
+                    "</head>" +
+                    "" +
+                    "<body>" +
+                    "<h1>Dotin Internet Bank</h1>" +
+                    "" +
+                    "<h3>" + RealCustomerActions.getInsertionSuccess() + "</h3>" +
+                    "</body>" +
+                    "</html>");
 
         } catch (SQLException e) {
             e.printStackTrace();

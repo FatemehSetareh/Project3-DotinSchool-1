@@ -127,9 +127,9 @@ public class RealCustomerActions {
             preparedStatement = connection.prepareStatement("UPDATE customer " + set + " WHERE customerNumber = " + customerNumber);
             System.out.println(preparedStatement);
             if (preparedStatement.executeUpdate() > 0) {
-                updatingSuccess = " Updated Successfully.";
+                updatingSuccess = "Account " + customerNumber + " Updated Successfully.";
             } else
-                updatingSuccess = " Updating Not Successful.";
+                updatingSuccess = "Account " + customerNumber + " Could Not Update.";
         } catch (SQLException e) {
             e.printStackTrace();
         }

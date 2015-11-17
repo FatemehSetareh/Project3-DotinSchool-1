@@ -45,41 +45,7 @@ public class SearchLegalCustomerServlet extends HttpServlet {
             //**get output and print response to html file
             out.print("<html>" +
                     "<head>" +
-                    "    <style>" +
-                    "        body {" +
-                    "            background: lightpink center;" +
-                    "            padding: 25pt;" +
-                    "        }" +
-                    "" +
-                    "        h1 {" +
-                    "            font-size: 250%;" +
-                    "            color: darkblue;" +
-                    "            text-align: center;" +
-                    "            margin-top: 60pt;" +
-                    "        }" +
-                    "" +
-                    "        h3 {" +
-                    "            font-size: 15pt;" +
-                    "            color: black;" +
-                    "            text-align: center;" +
-                    "            margin-top: 30pt;" +
-                    "        }" +
-                    "" +
-                    "        p {" +
-                    "            font-size: 11pt;" +
-                    "            text-align: left;" +
-                    "            margin-top: 60pt;" +
-                    "        }" +
-                    "" +
-                    "        input {" +
-                    "            font-weight: bold;" +
-                    "            border: 3px solid #998297;" +
-                    "            padding: 5pt;" +
-                    "            height: 25pt;" +
-                    "            border-radius: 7px;" +
-                    "        }" +
-                    "" +
-                    "    </style>" +
+                    "<link rel=\"stylesheet\" type=\"text/css\" href=\"Theme.css\" media=\"screen\" />" +
                     "</head>" +
                     "" +
                     "<body>" +
@@ -87,7 +53,6 @@ public class SearchLegalCustomerServlet extends HttpServlet {
                     "" +
                     "<h3>Search Result For A Legal Customer</h3>" +
                     "<caption>Search Result:</caption>");
-            //out.print("<form action=\"/DeleteLegalCustomerServlet\">");
             out.print("<table width=50% border=2>");
             out.print("<tr>");
             for (int i = 6; i <= 9; i++) {
@@ -109,7 +74,6 @@ public class SearchLegalCustomerServlet extends HttpServlet {
                         + "</td></tr>");
             }
             out.print("</table>");
-            //out.print("</form>");
             out.print("</body></html>");
 
         } catch (SQLException e) {

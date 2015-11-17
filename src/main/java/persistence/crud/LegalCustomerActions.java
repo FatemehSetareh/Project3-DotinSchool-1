@@ -6,9 +6,7 @@ import persistence.DotinBankDataBase;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- * Created by ${Dotin} on ${4/25/2015}.
- */
+
 public class LegalCustomerActions {
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -111,9 +109,9 @@ public class LegalCustomerActions {
         try {
             preparedStatement = connection.prepareStatement("UPDATE customer " + set + "WHERE customerNumber = " + customerNumber);
             if (preparedStatement.executeUpdate() > 0) {
-                updatingSuccess = " Updated Successfully.";
+                updatingSuccess = "Account " + customerNumber + " Updated Successfully.";
             } else
-                updatingSuccess = " Updating Not Successful.";
+                updatingSuccess = "Account " + customerNumber + " Could Not Update.";
         } catch (SQLException e) {
             e.printStackTrace();
         }

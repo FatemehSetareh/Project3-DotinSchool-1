@@ -5,9 +5,7 @@ import presentation.RegisterLegalCustomerServlet;
 
 import java.sql.SQLException;
 
-/**
- * Created by ${Dotin} on ${4/25/2015}.
- */
+
 public class LegalLogic {
     boolean flag = true;
     LegalCustomerActions legalCustomerActions;
@@ -20,9 +18,9 @@ public class LegalLogic {
 
     public void checkRegisterLogic(LegalCustomer legalCustomer) throws SQLException, ClassNotFoundException {
 
-        if (flag == true) {
+        if (flag) {
             legalCustomerActions.insertToDatabase(legalCustomer);
-        } else registerLegalCustomerServlet.printErrorReport();
+        } ///else registerLegalCustomerServlet.printErrorReport();
     }
 
     public void searchLogic(String corporationName, String financialCode, Integer customerNumber) {
