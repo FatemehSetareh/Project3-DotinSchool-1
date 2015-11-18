@@ -27,26 +27,42 @@ public class RegisterRealCustomerServlet extends HttpServlet {
         String fatherName;
         String nationalCode;
         String birthDate;
+        String errorMsg = "";
 
         if (!request.getParameter("firstName").equals("")) {
             firstName = request.getParameter("firstName");
-        } else firstName = null;
+        } else {
+            firstName = null;
+            errorMsg += "First Name Field Is Empty" + "<br>";
+        }
 
         if (!request.getParameter("lastName").equals("")) {
             lastName = request.getParameter("lastName");
-        } else lastName = null;
+        } else {
+            lastName = null;
+            errorMsg += "Last Name Field Is Empty" + "<br>";
+        }
 
         if (!request.getParameter("fatherName").equals("")) {
             fatherName = request.getParameter("fatherName");
-        } else fatherName = null;
+        } else {
+            fatherName = null;
+            errorMsg += "Father Name Field Is Empty" + "<br>";
+        }
 
         if (!request.getParameter("nationalCode").equals("")) {
             nationalCode = request.getParameter("nationalCode");
-        } else nationalCode = null;
+        } else {
+            nationalCode = null;
+            errorMsg += "National Code Field Is Empty" + "<br>";
+        }
 
         if (!request.getParameter("birthDate").equals("")) {
             birthDate = request.getParameter("birthDate");
-        } else birthDate = null;
+        } else {
+            birthDate = null;
+            errorMsg += "Birth Date Field Is Empty" + "<br>";
+        }
 
         if (firstName != null && lastName != null && fatherName != null && nationalCode != null && birthDate != null) {
             RealCustomer realCustomer = new RealCustomer(firstName, lastName, fatherName, nationalCode, birthDate, null);
@@ -82,7 +98,9 @@ public class RegisterRealCustomerServlet extends HttpServlet {
                     "<body>" +
                     "<h1>Dotin Internet Bank</h1>" +
                     "" +
-                    "<h3>Sorry, Please Fill All Information </h3>" +
+                    "<h3>Sorry, Please Fill Form Correctly </h3>" +
+                    "<br>" +
+                    "<h2>" + errorMsg + "</h2>" +
                     "</body>" +
                     "</html>");
         }

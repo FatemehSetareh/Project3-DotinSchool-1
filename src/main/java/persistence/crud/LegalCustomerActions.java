@@ -20,7 +20,7 @@ public class LegalCustomerActions {
     public LegalCustomerActions() throws SQLException, ClassNotFoundException {
         Class.forName(DotinBankDataBase.JDBC_DRIVER);
         connection = DriverManager.getConnection(DotinBankDataBase.DATABASE_URL, DotinBankDataBase.USERNAME, DotinBankDataBase.PASSWORD);
-        searchResultArray = new ArrayList();
+        searchResultArray = new ArrayList<LegalCustomer>();
     }
 
     public void insertToDatabase(LegalCustomer legalCustomer) {

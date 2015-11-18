@@ -25,18 +25,28 @@ public class RegisterLegalCustomerServlet extends HttpServlet {
         String corporationName;
         String financialCode;
         String registerDate;
+        String errorMsg = "";
 
         if (!request.getParameter("corporationName").equals("")) {
             corporationName = request.getParameter("corporationName");
-        } else corporationName = null;
+        } else {
+            corporationName = null;
+            errorMsg += "Corporation Name Field Is Empty" + "<br>";
+        }
 
         if (!request.getParameter("financialCode").equals("")) {
             financialCode = request.getParameter("financialCode");
-        } else financialCode = null;
+        } else {
+            financialCode = null;
+            errorMsg += "Financial Code Field Is Empty" + "<br>";
+        }
 
         if (!request.getParameter("registerDate").equals("")) {
             registerDate = request.getParameter("registerDate");
-        } else registerDate = null;
+        } else {
+            registerDate = null;
+            errorMsg += "Register Date Field Is Empty" + "<br>";
+        }
 
         if (corporationName != null && financialCode != null && registerDate != null) {
             LegalCustomer legalCustomer = new LegalCustomer(null, corporationName, financialCode, registerDate);
@@ -72,7 +82,9 @@ public class RegisterLegalCustomerServlet extends HttpServlet {
                     "<body>" +
                     "<h1>Dotin Internet Bank</h1>" +
                     "" +
-                    "<h3>Sorry, Please Fill All Information </h3>" +
+                    "<h3>Sorry, Please Fill Form Correctly </h3>" +
+                    "<br>" +
+                    "<h2>" +errorMsg +"</h2>"+
                     "</body>" +
                     "</html>");
         }

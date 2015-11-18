@@ -15,12 +15,12 @@ public class RealCustomerActions {
     private static ResultSetMetaData metaDataResult;
     private static String deletionSuccess;
     private static String updatingSuccess;
-    static boolean x;
+
 
     public RealCustomerActions() throws SQLException, ClassNotFoundException {
         Class.forName(DotinBankDataBase.JDBC_DRIVER);
         connection = DriverManager.getConnection(DotinBankDataBase.DATABASE_URL, DotinBankDataBase.USERNAME, DotinBankDataBase.PASSWORD);
-        searchResultArray = new ArrayList();
+        searchResultArray = new ArrayList<RealCustomer>();
     }
 
     public void insertToDatabase(RealCustomer realCustomer) {
