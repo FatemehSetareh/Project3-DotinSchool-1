@@ -22,17 +22,48 @@ public class RegisterLegalCustomerServlet extends HttpServlet {
         out = response.getWriter();
 
         //**get data from html file
-        String corporationName = request.getParameter("corporationName");
-        String financialCode = request.getParameter("financialCode");
-        String registerDate = request.getParameter("registerDate");
-        LegalCustomer legalCustomer = new LegalCustomer(null, corporationName, financialCode, registerDate);
+        String corporationName;
+        String financialCode;
+        String registerDate;
 
-        try {
-            //**send data to logic layer
-            LegalLogic legalLogic = new LegalLogic();
-            legalLogic.checkRegisterLogic(legalCustomer);
+        if (!request.getParameter("corporationName").equals("")) {
+            corporationName = request.getParameter("corporationName");
+        } else corporationName = null;
 
-            //**get output and show result to user
+        if (!request.getParameter("financialCode").equals("")) {
+            financialCode = request.getParameter("financialCode");
+        } else financialCode = null;
+
+        if (!request.getParameter("registerDate").equals("")) {
+            registerDate = request.getParameter("registerDate");
+        } else registerDate = null;
+
+        if (corporationName != null && financialCode != null && registerDate != null) {
+            LegalCustomer legalCustomer = new LegalCustomer(null, corporationName, financialCode, registerDate);
+
+            try {
+                //**send data to logic layer
+                LegalLogic legalLogic = new LegalLogic();
+                legalLogic.checkRegisterLogic(legalCustomer);
+
+                //**get output and show result to user
+                out.print("<html>" +
+                        "<head>" +
+                        "<link rel=\"stylesheet\" type=\"text/css\" href=\"Theme.css\" media=\"screen\" />" +
+                        "</head>" +
+                        "" +
+                        "<body>" +
+                        "<h1>Dotin Internet Bank</h1>" +
+                        "" +
+                        "<h3>" + LegalCustomerActions.getInsertionSuccess() + "</h3>" +
+                        "</body>" +
+                        "</html>");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
             out.print("<html>" +
                     "<head>" +
                     "<link rel=\"stylesheet\" type=\"text/css\" href=\"Theme.css\" media=\"screen\" />" +
@@ -41,13 +72,9 @@ public class RegisterLegalCustomerServlet extends HttpServlet {
                     "<body>" +
                     "<h1>Dotin Internet Bank</h1>" +
                     "" +
-                    "<h3>" + LegalCustomerActions.getInsertionSuccess() + "</h3>" +
+                    "<h3>Sorry, Please Fill All Information </h3>" +
                     "</body>" +
                     "</html>");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 

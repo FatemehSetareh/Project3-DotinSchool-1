@@ -15,6 +15,7 @@ public class RealCustomerActions {
     private static ResultSetMetaData metaDataResult;
     private static String deletionSuccess;
     private static String updatingSuccess;
+    static boolean x;
 
     public RealCustomerActions() throws SQLException, ClassNotFoundException {
         Class.forName(DotinBankDataBase.JDBC_DRIVER);
@@ -26,7 +27,8 @@ public class RealCustomerActions {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO customer"
                     + "(firstName, lastName, fatherName, nationalCode, birthDate) VALUES"
-                    + "(?,?,?,?,?)");
+                    + "(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+
             preparedStatement.setString(1, realCustomer.getFirstName());
             preparedStatement.setString(2, realCustomer.getLastName());
             preparedStatement.setString(3, realCustomer.getFatherName());
@@ -35,10 +37,14 @@ public class RealCustomerActions {
             System.out.println(preparedStatement);
 
             if (preparedStatement.executeUpdate() > 0) {
-                System.out.println("Success");
-                insertionSuccess = realCustomer.getFirstName() + " " + realCustomer.getLastName() + " Registered Successfully.";
+                int customerNumberAutoInc = -1;
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    customerNumberAutoInc = resultSet.getInt(1);
+                }
+                insertionSuccess = "Customer Name: " + realCustomer.getFirstName() + " " + realCustomer.getLastName() + "<br>" + " Customer Number: " + customerNumberAutoInc + "<br>" + " Registered Successfully.";
             } else
-                insertionSuccess = realCustomer.getFirstName() + " " + realCustomer.getLastName() + " Registration Failed.";
+                insertionSuccess = "Customer Name: " + realCustomer.getFirstName() + " " + realCustomer.getLastName() + " Registration Failed.";
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -135,19 +141,22 @@ public class RealCustomerActions {
         }
     }
 
-//    public void exist(String nationalCode) {
-//        try {
-//            preparedStatement = connection.prepareStatement("SELECT EXISTS (SELECT customerNumber FROM customer WHERE nationalCode= '" + nationalCode + "')");
-//            if (preparedStatement.executeQuery() != null) {
-//                //***send reply to realLogic that this national code registered before!
-//                exists = true;
-//            }else{
-//                exists = false;
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public boolean checkExistence(RealCustomer realCustomer) throws SQLException {
+        preparedStatement = connection.prepareStatement("SELECT COUNT(*) AS ROW_COUNT  FROM customer WHERE nationalCode= '" + realCustomer.getNationalCode() + "'");
+        System.out.println(preparedStatement);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            System.out.println(resultSet.getInt("ROW_COUNT"));
+            if (resultSet.getInt("ROW_COUNT") == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        System.out.println("Error...");
+        return false;
+    }
+
 
     public static String getInsertionSuccess() {
         return insertionSuccess;
@@ -167,5 +176,9 @@ public class RealCustomerActions {
 
     public static String getUpdatingSuccess() {
         return updatingSuccess;
+    }
+
+    public static void setInsertionSuccess(String insertionSuccess) {
+        RealCustomerActions.insertionSuccess = insertionSuccess;
     }
 }

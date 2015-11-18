@@ -27,16 +27,21 @@ public class LegalCustomerActions {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO customer"
                     + "(corporationName, financialCode, registerDate) VALUES"
-                    + "(?,?,?)");
+                    + "(?,?,?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, legalCustomer.getCorporationName());
             preparedStatement.setString(2, legalCustomer.getFinancialCode());
             preparedStatement.setString(3, legalCustomer.getRegisterDate());
             System.out.println(preparedStatement);
 
             if (preparedStatement.executeUpdate() > 0) {
-                insertionSuccess = legalCustomer.getCorporationName() + " Registered Successfully.";
+                int customerNumberAutoInc = -1;
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    customerNumberAutoInc = resultSet.getInt(1);
+                }
+                insertionSuccess = "Corporation Name: " + legalCustomer.getCorporationName() + "<br>" + " Customer Number: " + customerNumberAutoInc + "<br>" + " Registered Successfully.";
             } else
-                insertionSuccess = legalCustomer.getCorporationName() + " Registration Failed.";
+                insertionSuccess = "Corporation Name: " + legalCustomer.getCorporationName() + "<br>" + " Registration Failed.";
         } catch (Exception e2) {
             e2.printStackTrace();
         }
@@ -117,15 +122,21 @@ public class LegalCustomerActions {
         }
     }
 
-//    public void exist(String financialCode) {
-//        try {
-//            preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE financialCode = '" + financialCode + "'");
-//            if (preparedStatement.executeUpdate() > 0) {
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public boolean checkExistence(LegalCustomer legalCustomer) throws SQLException {
+        preparedStatement = connection.prepareStatement("SELECT COUNT(*) AS ROW_COUNT  FROM customer WHERE financialCode= '" + legalCustomer.getFinancialCode() + "'");
+        System.out.println(preparedStatement);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            System.out.println(resultSet.getInt("ROW_COUNT"));
+            if (resultSet.getInt("ROW_COUNT") == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        System.out.println("Error...");
+        return false;
+    }
 
     public static ResultSetMetaData getMetaDataResult() {
         return metaDataResult;
@@ -145,5 +156,9 @@ public class LegalCustomerActions {
 
     public static String getUpdatingSuccess() {
         return updatingSuccess;
+    }
+
+    public static void setInsertionSuccess(String insertionSuccess) {
+        LegalCustomerActions.insertionSuccess = insertionSuccess;
     }
 }

@@ -15,10 +15,11 @@ public class RealLogic {
 
     public void checkRegisterLogic(RealCustomer realCustomer) throws SQLException, ClassNotFoundException {
 
-        if (flag) {
+        if (realCustomerActions.checkExistence(realCustomer)) {
             realCustomerActions.insertToDatabase(realCustomer);
-        } //else
-        //registerRealCustomerServlet.printErrorReport();
+        } else {
+            RealCustomerActions.setInsertionSuccess("Sorry. This National Code Registered Before");
+        }
     }
 
     public void searchLogic(String firstName, String lastName, String nationalCode, Integer customerNumber) {
@@ -26,11 +27,11 @@ public class RealLogic {
         realCustomerActions.searchDatabase(firstName, lastName, nationalCode, customerNumber);
     }
 
-    public void deleteLogic(Integer customerNumber){
+    public void deleteLogic(Integer customerNumber) {
         realCustomerActions.deleteFromDatabase(customerNumber);
     }
 
-    public void updateLogic(String firstName, String lastName,String fatherName, String nationalCode,String birthDate, Integer customerNumber){
+    public void updateLogic(String firstName, String lastName, String fatherName, String nationalCode, String birthDate, Integer customerNumber) {
         realCustomerActions.updateDatabase(firstName, lastName, fatherName, nationalCode, birthDate, customerNumber);
     }
 

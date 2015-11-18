@@ -18,9 +18,11 @@ public class LegalLogic {
 
     public void checkRegisterLogic(LegalCustomer legalCustomer) throws SQLException, ClassNotFoundException {
 
-        if (flag) {
+        if (legalCustomerActions.checkExistence(legalCustomer)) {
             legalCustomerActions.insertToDatabase(legalCustomer);
-        } ///else registerLegalCustomerServlet.printErrorReport();
+        } else {
+            legalCustomerActions.setInsertionSuccess("Sorry. This Financial Code Registered Before");
+        }
     }
 
     public void searchLogic(String corporationName, String financialCode, Integer customerNumber) {
@@ -28,11 +30,11 @@ public class LegalLogic {
         legalCustomerActions.searchDatabase(corporationName, financialCode, customerNumber);
     }
 
-    public void deleteLogic(Integer customerNumber){
+    public void deleteLogic(Integer customerNumber) {
         legalCustomerActions.deleteFromDatabase(customerNumber);
     }
 
-    public void updateLogic(String corporationName, String financialCode, String registerDate, Integer customerNumber){
+    public void updateLogic(String corporationName, String financialCode, String registerDate, Integer customerNumber) {
         legalCustomerActions.updateDatabase(corporationName, financialCode, registerDate, customerNumber);
     }
 }
