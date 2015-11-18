@@ -20,7 +20,6 @@ public class SearchRealCustomerServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-
         String firstName;
         String lastName;
         String nationalCode;

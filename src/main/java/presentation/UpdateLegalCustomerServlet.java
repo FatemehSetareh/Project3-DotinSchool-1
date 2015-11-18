@@ -36,8 +36,7 @@ public class UpdateLegalCustomerServlet extends HttpServlet {
                 "    <br>" +
                 "    <br>" +
                 "<form action=\"\\UpdateLegalCustomerServlet\" method=\"post\">" +
-                "    customerNumber is : " + customerNumber + " could not change..." +
-                "    <br>" +
+                "    <p>customerNumber is : " + customerNumber + " could not change...</p>" +
                 "    <input type=\"text\" name=\"corporationName\" onfocus=\"if(this.value == 'Corporation Name') { this.value = ''; }\"" +
                 "           value=\"Corporation Name\">" +
                 "    <br>" +

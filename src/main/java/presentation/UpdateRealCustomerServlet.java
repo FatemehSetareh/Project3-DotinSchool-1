@@ -26,15 +26,13 @@ public class UpdateRealCustomerServlet extends HttpServlet {
 
         out.print("<html><head>" +
                 "<head>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"Theme.css\" media=\"screen\" />"+
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"Theme.css\" media=\"screen\" />" +
                 "</head>" +
                 "<body>" +
                 "<h1>Dotin Internet Bank</h1>" +
                 "<h3>Real Update Form</h3>" +
                 "<form action=\"\\UpdateRealCustomerServlet\" method='post'>" +
-                "    customerNumber is : " + customerNumber + " could not change..." +
-                "    <br>" +
-                "    <br>" +
+                "   <p>customerNumber is : " + customerNumber + " could not change...</p>" +
                 "    <input type=\"text\" name=\"firstName\" onfocus=\"if(this.value == 'First Name') { this.value = ''; }\"" +
                 "           value=\"First Name\">" +
                 "    <br>" +

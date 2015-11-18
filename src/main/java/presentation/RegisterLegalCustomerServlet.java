@@ -84,7 +84,7 @@ public class RegisterLegalCustomerServlet extends HttpServlet {
                     "" +
                     "<h3>Sorry, Please Fill Form Correctly </h3>" +
                     "<br>" +
-                    "<h2>" +errorMsg +"</h2>"+
+                    "<h2>" + errorMsg + "</h2>" +
                     "</body>" +
                     "</html>");
         }
