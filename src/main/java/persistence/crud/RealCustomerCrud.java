@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-public class RealCustomerActions {
+public class RealCustomerCrud {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private static String insertionSuccess;
@@ -17,7 +17,7 @@ public class RealCustomerActions {
     private static String updatingSuccess;
 
 
-    public RealCustomerActions() throws SQLException, ClassNotFoundException {
+    public RealCustomerCrud() throws SQLException, ClassNotFoundException {
         Class.forName(DotinBankDataBase.JDBC_DRIVER);
         connection = DriverManager.getConnection(DotinBankDataBase.DATABASE_URL, DotinBankDataBase.USERNAME, DotinBankDataBase.PASSWORD);
         searchResultArray = new ArrayList<RealCustomer>();
@@ -26,14 +26,15 @@ public class RealCustomerActions {
     public void insertToDatabase(RealCustomer realCustomer) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO customer"
-                    + "(firstName, lastName, fatherName, nationalCode, birthDate) VALUES"
-                    + "(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    + "(firstName, lastName, fatherName, nationalCode, birthDate, customerType) VALUES"
+                    + "(?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, realCustomer.getFirstName());
             preparedStatement.setString(2, realCustomer.getLastName());
             preparedStatement.setString(3, realCustomer.getFatherName());
             preparedStatement.setString(4, realCustomer.getNationalCode());
             preparedStatement.setString(5, realCustomer.getBirthDate());
+            preparedStatement.setString(6, realCustomer.getCustomerType());
             System.out.println(preparedStatement);
 
             if (preparedStatement.executeUpdate() > 0) {
@@ -72,6 +73,9 @@ public class RealCustomerActions {
                 where += " WHERE " + "customerNumber = '" + customerNumber + "'";
             } else where += " AND " + "customerNumber = '" + customerNumber + "'";
         }
+        if (where.equals("")) {
+            where += " WHERE " + "customerType = '" + 1 + "'";
+        } else where += " AND " + "customerType = '" + 1 + "'";
 
         try {
             preparedStatement = connection.prepareStatement("SELECT * FROM customer " + where);
@@ -79,7 +83,7 @@ public class RealCustomerActions {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                RealCustomer realCustomer = new RealCustomer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
+                RealCustomer realCustomer = new RealCustomer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6), resultSet.getString(7));
                 searchResultArray.add(realCustomer);
             }
             metaDataResult = resultSet.getMetaData();
@@ -90,7 +94,7 @@ public class RealCustomerActions {
 
     public void deleteFromDatabase(Integer customerNumber) {
         try {
-            preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE customerNumber = '" + customerNumber + "'");
+            preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE customerNumber = " + customerNumber);
             if (preparedStatement.executeUpdate() > 0) {
                 deletionSuccess = "Account " + customerNumber + " successfully deleted";
             } else {
@@ -142,7 +146,7 @@ public class RealCustomerActions {
     }
 
     public boolean checkExistence(RealCustomer realCustomer) throws SQLException {
-        preparedStatement = connection.prepareStatement("SELECT COUNT(*) AS ROW_COUNT  FROM customer WHERE nationalCode= '" + realCustomer.getNationalCode() + "'");
+        preparedStatement = connection.prepareStatement("SELECT COUNT(*) AS ROW_COUNT  FROM customer WHERE nationalCode= '" + realCustomer.getNationalCode() + "' AND customerType='1' ");
         System.out.println(preparedStatement);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -179,6 +183,6 @@ public class RealCustomerActions {
     }
 
     public static void setInsertionSuccess(String insertionSuccess) {
-        RealCustomerActions.insertionSuccess = insertionSuccess;
+        RealCustomerCrud.insertionSuccess = insertionSuccess;
     }
 }

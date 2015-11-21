@@ -1,7 +1,7 @@
 package presentation;
 
 import business.RealLogic;
-import persistence.crud.RealCustomerActions;
+import persistence.crud.RealCustomerCrud;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,27 +20,11 @@ public class SearchRealCustomerServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        String firstName;
-        String lastName;
-        String nationalCode;
-        Integer customerNumber;
-
         //**receive data from html file
-        if (!request.getParameter("firstName").equals("")) {
-            firstName = request.getParameter("firstName");
-        } else firstName = null;
-
-        if (!request.getParameter("lastName").equals("")) {
-            lastName = request.getParameter("lastName");
-        } else lastName = null;
-
-        if (!request.getParameter("nationalCode").equals("")) {
-            nationalCode = request.getParameter("nationalCode");
-        } else nationalCode = null;
-
-        if (!request.getParameter("customerNumber").equals("")) {
-            customerNumber = Integer.valueOf(request.getParameter("customerNumber"));
-        } else customerNumber = null;
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String nationalCode = request.getParameter("nationalCode");
+        String customerNumber = request.getParameter("customerNumber");
 
         try {
             //**send data to logic layer
@@ -59,22 +43,23 @@ public class SearchRealCustomerServlet extends HttpServlet {
                     "<h3>Search Result For A Real Customer</h3>" +
                     "<caption>Search Result:</caption>" +
                     "<table width=50% border=2>");
-            for (int i = 1; i <= 6; i++) {
-                out.print("<th>" + RealCustomerActions.getMetaDataResult().getColumnName(i) + "</th>");
+            for (int i = 1; i <= 7; i++) {
+                out.print("<th>" + RealCustomerCrud.getMetaDataResult().getColumnName(i) + "</th>");
             }
-            for (int i = 0; i <= RealCustomerActions.getSearchResultArray().size(); i++) {
-                out.println("<tr><td>" + RealCustomerActions.getSearchResultArray().get(i).getFirstName()
-                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getLastName()
-                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getFatherName()
-                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getNationalCode()
-                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getBirthDate()
-                        + "</td><td>" + RealCustomerActions.getSearchResultArray().get(i).getCustomerNumber()
+            for (int i = 0; i <= RealCustomerCrud.getSearchResultArray().size(); i++) {
+                out.println("<tr><td>" + RealCustomerCrud.getSearchResultArray().get(i).getFirstName()
+                        + "</td><td>" + RealCustomerCrud.getSearchResultArray().get(i).getLastName()
+                        + "</td><td>" + RealCustomerCrud.getSearchResultArray().get(i).getFatherName()
+                        + "</td><td>" + RealCustomerCrud.getSearchResultArray().get(i).getNationalCode()
+                        + "</td><td>" + RealCustomerCrud.getSearchResultArray().get(i).getBirthDate()
+                        + "</td><td>" + RealCustomerCrud.getSearchResultArray().get(i).getCustomerNumber()
+                        + "</td><td>" + RealCustomerCrud.getSearchResultArray().get(i).getCustomerType()
                         + "<form action=\"/UpdateRealCustomerServlet\">"
-                        + "</td><input type='hidden' name=\"customerNumber\" value=\"" + RealCustomerActions.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
+                        + "</td><input type='hidden' name=\"customerNumber\" value=\"" + RealCustomerCrud.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
                         + "<td align='center'><input type='submit' value=\"Update\"></td>"
                         + "</form>"
                         + "<form action=\"/DeleteRealCustomerServlet\">"
-                        + "</td><input type='hidden' name=\"customerNumber\" value=\"" + RealCustomerActions.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
+                        + "</td><input type='hidden' name=\"customerNumber\" value=\"" + RealCustomerCrud.getSearchResultArray().get(i).getCustomerNumber() + "\"><td>"
                         + "<td align='center'><input type='submit' value=\"Delete\"></td>"
                         + "</form>"
                         + "</td></tr>");

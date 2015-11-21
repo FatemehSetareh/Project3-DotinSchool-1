@@ -1,7 +1,7 @@
 package presentation;
 
 import business.RealLogic;
-import persistence.crud.RealCustomerActions;
+import persistence.crud.RealCustomerCrud;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -79,7 +79,7 @@ public class UpdateRealCustomerServlet extends HttpServlet {
                     "<body>" +
                     "<h1>Dotin Internet Bank</h1>" +
                     "" +
-                    "<h3>" + RealCustomerActions.getUpdatingSuccess() + "</h3>" +
+                    "<h3>" + RealCustomerCrud.getUpdatingSuccess() + "</h3>" +
                     "</body>" +
                     "</html>");
         } catch (SQLException e) {

@@ -1,7 +1,7 @@
 package presentation;
 
 import business.LegalLogic;
-import persistence.crud.LegalCustomerActions;
+import persistence.crud.LegalCustomerCrud;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +36,7 @@ public class DeleteLegalCustomerServlet extends HttpServlet {
                     "<body>" +
                     "<h1>Dotin Internet Bank</h1>" +
                     "" +
-                    "<h3>" + LegalCustomerActions.getDeletionSuccess() + "</h3>" +
+                    "<h3>" + LegalCustomerCrud.getDeletionSuccess() + "</h3>" +
                     "</body>" +
                     "</html>");
 

@@ -8,14 +8,16 @@ public class RealCustomer extends Customer {
     private String nationalCode;
     private String birthDate;
     private Integer customerNumber;
+    private String customerType;
 
-    public RealCustomer(String firstName, String lastName, String fatherName, String nationalCode, String birthDate, Integer customerNumber) {
+    public RealCustomer(String firstName, String lastName, String fatherName, String nationalCode, String birthDate, Integer customerNumber, String customerType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.fatherName = fatherName;
         this.nationalCode = nationalCode;
         this.birthDate = birthDate;
         this.customerNumber = customerNumber;
+        this.customerType = customerType;
     }
 
     public String getFirstName() {
@@ -40,5 +42,9 @@ public class RealCustomer extends Customer {
 
     public Integer getCustomerNumber() {
         return customerNumber;
+    }
+
+    public String getCustomerType() {
+        return customerType;
     }
 }

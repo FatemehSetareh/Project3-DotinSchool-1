@@ -1,7 +1,7 @@
 package presentation;
 
 import business.RealLogic;
-import persistence.crud.RealCustomerActions;
+import persistence.crud.RealCustomerCrud;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +26,6 @@ public class DeleteRealCustomerServlet extends HttpServlet {
         try {
             RealLogic realLogic = new RealLogic();
             realLogic.deleteLogic(customerNumber);
-            //out.print(RealCustomerActions.getDeletionSuccess());
             out.print("<html>" +
                     "<head>" +
                     "<link rel=\"stylesheet\" type=\"text/css\" href=\"Theme.css\" media=\"screen\" />" +
@@ -35,7 +34,7 @@ public class DeleteRealCustomerServlet extends HttpServlet {
                     "<body>" +
                     "<h1>Dotin Internet Bank</h1>" +
                     "" +
-                    "<h3>" + RealCustomerActions.getDeletionSuccess() + "</h3>" +
+                    "<h3>" + RealCustomerCrud.getDeletionSuccess() + "</h3>" +
                     "</body>" +
                     "</html>");
 

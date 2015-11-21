@@ -1,14 +1,16 @@
 package business;
 
 
-public class LegalCustomer extends Customer{
+public class LegalCustomer extends Customer {
     private String corporationName;
     private String financialCode;
     private String registerDate;
     private Integer customerNumber;
+    private String customerType;
 
-    public LegalCustomer(Integer customerNumber, String corporationName, String financialCode, String registerDate) {
+    public LegalCustomer(Integer customerNumber,String customerType, String corporationName, String financialCode, String registerDate) {
         this.customerNumber = customerNumber;
+        this.customerType = customerType;
         this.corporationName = corporationName;
         this.financialCode = financialCode;
         this.registerDate = registerDate;
@@ -30,4 +32,7 @@ public class LegalCustomer extends Customer{
         return customerNumber;
     }
 
+    public String getCustomerType() {
+        return customerType;
+    }
 }

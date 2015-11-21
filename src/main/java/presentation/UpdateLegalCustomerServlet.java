@@ -1,7 +1,7 @@
 package presentation;
 
 import business.LegalLogic;
-import persistence.crud.LegalCustomerActions;
+import persistence.crud.LegalCustomerCrud;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -77,7 +77,7 @@ public class UpdateLegalCustomerServlet extends HttpServlet {
                     "<body>" +
                     "<h1>Dotin Internet Bank</h1>" +
                     "" +
-                    "<h3>" + LegalCustomerActions.getUpdatingSuccess() + "</h3>" +
+                    "<h3>" + LegalCustomerCrud.getUpdatingSuccess() + "</h3>" +
                     "</body>" +
                     "</html>");
         } catch (SQLException e) {

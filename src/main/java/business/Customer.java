@@ -3,6 +3,7 @@ package business;
 
 public class Customer {
     protected Integer customerNumber;
+    protected String customerType;
 
     public Integer getCustomerNumber() {
         return customerNumber;
