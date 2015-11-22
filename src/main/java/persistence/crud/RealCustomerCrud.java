@@ -53,32 +53,51 @@ public class RealCustomerCrud {
 
     public void searchDatabase(String firstName, String lastName, String nationalCode, Integer customerNumber) {
         String where = "";
+        ArrayList<String> values = new ArrayList<String>();
         if (firstName != null) {
             if (where.equals("")) {
-                where += " WHERE " + "firstName = '" + firstName + "'";
-            } else where += " AND " + "firstName = '" + firstName + "'";
+                where += " WHERE " + "firstName = ?";
+            } else {
+                where += " AND " + "firstName = ?";
+            }
+            values.add(firstName);
         }
         if (lastName != null) {
             if (where.equals("")) {
-                where += " WHERE " + "lastName = '" + lastName + "'";
-            } else where += " AND " + "lastName = '" + lastName + "'";
+                where += " WHERE " + "lastName = ?";
+            } else {
+                where += " AND " + "lastName = ?";
+            }
+            values.add(lastName);
         }
         if (nationalCode != null) {
             if (where.equals("")) {
-                where += " WHERE " + "nationalCode = '" + nationalCode + "'";
-            } else where += " AND " + "nationalCode = '" + nationalCode + "'";
+                where += " WHERE " + "nationalCode = ?";
+            } else {
+                where += " AND " + "nationalCode = ?";
+            }
+            values.add(nationalCode);
         }
         if (customerNumber != null) {
             if (where.equals("")) {
-                where += " WHERE " + "customerNumber = '" + customerNumber + "'";
-            } else where += " AND " + "customerNumber = '" + customerNumber + "'";
+                where += " WHERE " + "customerNumber = ?";
+            } else {
+                where += " AND " + "customerNumber = ?";
+            }
+            values.add(customerNumber.toString());
         }
         if (where.equals("")) {
             where += " WHERE " + "customerType = '" + 1 + "'";
-        } else where += " AND " + "customerType = '" + 1 + "'";
+        } else {
+            where += " AND " + "customerType = '" + 1 + "'";
+        }
 
         try {
             preparedStatement = connection.prepareStatement("SELECT * FROM customer " + where);
+            //**To prevent injection SQL attack
+            for (int i = 0; i < values.size(); i++) {
+                preparedStatement.setString(i + 1, values.get(i));
+            }
             System.out.println(preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
 
